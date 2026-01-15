@@ -13,7 +13,7 @@ const Hero = () => {
                 </div>
             </div>
             <div>
-                <img className='w-full object-cover' src="src/assets/pngwing 1.png" alt="" />
+                <img className='w-full object-cover' src="assets/pngwing 1.png" alt="" />
             </div>
         </div>
         </div>
