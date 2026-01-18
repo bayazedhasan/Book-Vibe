@@ -1,16 +1,12 @@
 
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import React from 'react';
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAvoMm-XjKoOFvebZVZlGNtkYoCyKZyfIw",
-  authDomain: "books-vibe.firebaseapp.com",
-  projectId: "books-vibe",
-  storageBucket: "books-vibe.firebasestorage.app",
-  messagingSenderId: "832148286843",
-  appId: "1:832148286843:web:7f9f386319889fd56461de"
+const Firebase = () => {
+  return (
+    <div>
+      <h1>add code</h1>
+    </div>
+  );
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
+export default Firebase;
