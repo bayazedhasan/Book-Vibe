@@ -7,38 +7,48 @@ import ListedBooks from '../pages/ListedBooks/ListedBooks';
 import PagesToRead from '../pages/PagesToRead/PagesToRead';
 import SignUp from '../pages/SignUp/SignUp';
 import SignIn from '../pages/SignInUp/SignIn';
+import BookDetails from '../pages/BookDetails/BookDetails';
+import Profile from '../pages/Profile/Profile';
 
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    Component:Root,
-    errorElement:<ErrorPage></ErrorPage>,
-    children:[
-        {
-            index:true,
-            path:'/',
-            Component:Home,
-        },
-        {
-          path:'/ListedBooks',
-          element:<ListedBooks></ListedBooks>
-        },
-        {
-          path:'/PagesToRead',
-          element:<PagesToRead></PagesToRead>
-        },
-        
+    Component: Root,
+    errorElement: <ErrorPage></ErrorPage>,
+    children: [
+      {
+        index: true,
+        path: '/',
+        Component: Home,
+      },
+      {
+        path: '/books/:bookId',
+        element: <BookDetails></BookDetails>
+      },
+      {
+        path: '/ListedBooks',
+        element: <ListedBooks></ListedBooks>
+      },
+      {
+        path: '/PagesToRead',
+        element: <PagesToRead></PagesToRead>
+      },
+
 
     ]
   },
   {
-          path:'/signin',
-          element:<SignIn></SignIn>
-        },
-        {
-          path:'/signup',
-          element:<SignUp></SignUp>
-        },
+    path: '/signin',
+    element: <SignIn></SignIn>
+  },
+  {
+    path: '/signup',
+    element: <SignUp></SignUp>
+  },
+  {
+    path: '/profile',
+    element: <Profile></Profile>
+  },
 
 ]);

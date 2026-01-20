@@ -1,2 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Work+Sans:wght@500;600;700;800&display=swap');
 @import "tailwindcss";
 @plugin "daisyui";
+
+:root {
+  font-family: 'Inter', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Work Sans', sans-serif;
+}
+
+@theme {
+  --color-primary: #23BE0A;
+  --color-secondary: #59C6D2;
+}
+
+@layer utilities {
+  .glass-nav {
+    @apply bg-base-100/80 backdrop-blur-md border-b border-base-200 sticky top-0 z-50 transition-all duration-300;
+  }
+  
+  .hero-gradient {
+    @apply bg-gradient-to-r from-base-200 to-base-100;
+  }
+}
