@@ -28,7 +28,7 @@ const SignUp = () => {
     // Ideally we would update the profile with the name here too
     createUser(email, password)
       .then(result => {
-        console.log(result.user);
+        console.log("Mock User Created:", result.user);
         navigate('/');
       })
       .catch((err => console.log(err)))

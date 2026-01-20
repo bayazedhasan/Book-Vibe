@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { AuthContext } from '../../providers/AuthProvider';
-import { storage } from '../../components/Firebase/Firebase';
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+// import { storage } from '../../components/Firebase/Firebase';
+// import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const Profile = () => {
     const { user, updateUserProfile, updateUserEmail, updateUserPassword } = useContext(AuthContext);
@@ -45,36 +45,13 @@ const Profile = () => {
         setLoading(true);
         setError('');
 
-        try {
-            console.log("Starting upload...");
-            const storageRef = ref(storage, `profile_images/${user.uid}_${Date.now()}`);
-            console.log("Ref created:", storageRef);
-
-            const snapshot = await uploadBytes(storageRef, file);
-            console.log("Upload success:", snapshot);
-
-            const url = await getDownloadURL(storageRef);
-            console.log("Download URL:", url);
-
-            setPhoto(url);
-            setSuccess("Image uploaded! Click 'Save Changes' to apply.");
-        } catch (err) {
-            console.error("Upload Error:", err);
-            // Check for specific error codes
-            const errString = err.toString().toLowerCase();
-            if (err.code === 'storage/unauthorized') {
-                setError("Permission denied: Check Firebase Storage Rules.");
-            } else if (err.code === 'storage/canceled') {
-                setError("Upload canceled.");
-            } else if (errString.includes('cors') || errString.includes('network error') || err.message.includes('access control check')) {
-                setError("CORS Error Detected! Click 'Fix It' below.");
-                setShowCorsModal(true);
-            } else {
-                setError("Failed to upload image. " + err.message);
-            }
-        } finally {
+        // MOCK UPLOAD
+        setTimeout(() => {
+            const mockUrl = "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp";
+            setPhoto(mockUrl);
+            setSuccess("Mock Image uploaded! Click 'Save Changes' to apply.");
             setLoading(false);
-        }
+        }, 1000);
     };
 
     const handleGeneralUpdate = (e) => {

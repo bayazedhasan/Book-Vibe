@@ -1,77 +1,66 @@
-import React, { createContext, useEffect, useState } from 'react';
-import {
-    createUserWithEmailAndPassword,
-    getAuth,
-    onAuthStateChanged,
-    signInWithEmailAndPassword,
-    signInWithPopup,
-    signOut,
-    GoogleAuthProvider,
-    updateProfile,
-    updateEmail,
-    updatePassword
-} from "firebase/auth";
-
-// Actually, checking Firebase.js content again from previous turn...
-// Firebase.js has: export const auth = getAuth(app);
-// It does NOT export 'app' by default properly as a named export for other usages if we just want 'auth'.
-// Let's import 'auth' directly from existing Firebase.js to keep it consistent.
-
-import { auth } from '../components/Firebase/Firebase';
+import React, { createContext, useState } from 'react';
 
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
+    // Mock User State
+    // Set to { displayName: "Test User", email: "test@example.com", photoURL: "" } to test logged-in state
+    // Set to null to test logged-out state
     const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const googleProvider = new GoogleAuthProvider();
+    const [loading, setLoading] = useState(false);
 
+    // Mock Functions
     const createUser = (email, password) => {
-        setLoading(true);
-        return createUserWithEmailAndPassword(auth, email, password);
+        console.log("Mock Create User:", email, password);
+        return Promise.resolve({ user: { email } });
     }
 
     const signInUser = (email, password) => {
-        setLoading(true);
-        return signInWithEmailAndPassword(auth, email, password);
+        console.log("Mock Sign In:", email);
+        // Simulate login
+        setUser({
+            displayName: "Demo User",
+            email: email,
+            photoURL: "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
+            uid: "mock-uid-123"
+        });
+        return Promise.resolve({ user: { email } });
     }
 
     const signInWithGoogle = () => {
-        setLoading(true);
-        return signInWithPopup(auth, googleProvider);
+        console.log("Mock Google Sign In");
+        setUser({
+            displayName: "Google User",
+            email: "google@example.com",
+            photoURL: "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
+            uid: "mock-uid-google"
+        });
+        return Promise.resolve({ user: { email: "google@example.com" } });
     }
 
     const signOutUser = () => {
-        setLoading(true);
-        return signOut(auth);
+        console.log("Mock Sign Out");
+        setUser(null);
+        return Promise.resolve();
     }
 
     const updateUserProfile = (name, photo) => {
-        return updateProfile(auth.currentUser, {
-            displayName: name,
-            photoURL: photo
-        });
+        console.log("Mock Update Profile:", name, photo);
+        if (user) {
+            setUser({ ...user, displayName: name, photoURL: photo });
+        }
+        return Promise.resolve();
     }
 
     const updateUserEmail = (email) => {
-        setLoading(true);
-        return updateEmail(auth.currentUser, email);
+        console.log("Mock Update Email:", email);
+        return Promise.resolve();
     }
 
     const updateUserPassword = (newPassword) => {
-        setLoading(true);
-        return updatePassword(auth.currentUser, newPassword);
+        console.log("Mock Update Password");
+        return Promise.resolve();
     }
-
-    useEffect(() => {
-        const unSubscribe = onAuthStateChanged(auth, currentUser => {
-            setUser(currentUser);
-            setLoading(false);
-        });
-        return () => {
-            unSubscribe();
-        }
-    }, [])
 
     const authInfo = {
         user,
